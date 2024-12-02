@@ -1,0 +1,24 @@
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        
+        stack = []
+        for char in s:
+            if not stack:
+                stack.append((char, 1))
+                continue
+            else:
+                top_el, count = stack[-1]
+                if top_el == char:
+                    stack.pop()
+                    if count + 1 == k:
+                        continue
+                    else:
+                        stack.append((top_el, count + 1))
+                else:
+                    stack.append((char, 1))
+
+        final_word = ''
+        for el, count in stack:
+            chars = el*count
+            final_word = final_word + chars        
+        return final_word
