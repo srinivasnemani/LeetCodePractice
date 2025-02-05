@@ -1,0 +1,21 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nbe = []
+        for n1 in nums1:
+            idx_n2 = nums2.index(n1)
+            if idx_n2 == len(nums2) - 1:
+                nbe.append(-1)
+            else:
+                search_array = nums2[idx_n2 + 1:]
+                nxt_big_el = 1_000_000
+                for el in search_array:
+                    if n1 < el < nxt_big_el:
+                        nxt_big_el = el
+                        break
+                if not nxt_big_el == 1_000_000:
+                    nbe.append(nxt_big_el)
+                else:
+                    nbe.append(-1)
+
+        print(nbe)
+        return nbe        
