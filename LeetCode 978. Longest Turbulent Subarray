@@ -1,0 +1,35 @@
+class Solution:
+    def maxTurbulenceSize(self, arr: List[int]) -> int:
+
+        st_ptr = 0
+        rptr = len(arr)
+        cptr = 1
+
+        nxt_check = 'lt'
+        reset = True
+        largest_count = 1
+        k = 0
+        while k <= (len(arr) - 2):
+
+            if arr[k] == arr[k + 1]:
+                k = k + 1
+                st_ptr = k
+                reset = True
+                continue
+
+            if reset:
+                nxt_check = 'lt' if arr[k] > arr[k + 1] else 'gt'
+                largest_count = max(largest_count, k + 1 - st_ptr + 1)
+                reset = False
+                k = k + 1
+                continue
+
+            if (nxt_check == 'lt' and arr[k] < arr[k + 1]) or (nxt_check == 'gt' and arr[k] > arr[k + 1]):
+                largest_count = max(largest_count, k + 1 - st_ptr + 1)
+                nxt_check = 'gt' if nxt_check == 'lt' else 'lt'
+                k = k + 1
+            else:
+                st_ptr = k
+                reset = True
+                continue        
+        return largest_count
